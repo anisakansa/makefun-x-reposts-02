@@ -15,7 +15,7 @@
 // Deterministic by construction: no network, no wall clock, no randomness,
 // no files outside the repository. Two runs write the same bytes.
 
-import { copyFileSync, mkdirSync } from 'node:fs';
+import { copyFileSync, mkdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 const BOT_DIR = process.env.MAKEFUN_BOT_DIR ?? '/bot';
@@ -26,5 +26,18 @@ try {
   copyFileSync(join(BOT_DIR, 'POSTS.json'), join(OUTPUT_DIR, 'POSTS.json'));
 } catch (err) {
   console.error(`POSTS.json could not be copied from ${BOT_DIR}: ${(err as Error).message}`);
+  process.exit(1);
+}
+
+// Guard against handing the gate a malformed list: the copy must parse as
+// JSON with a "posts" array, or the entry is refused. Checked after the
+// copy so a bad source fails loudly here instead of silently at grading.
+try {
+  const parsed: unknown = JSON.parse(readFileSync(join(OUTPUT_DIR, 'POSTS.json'), 'utf8'));
+  if (typeof parsed !== 'object' || parsed === null || !Array.isArray((parsed as { posts?: unknown }).posts)) {
+    throw new Error('POSTS.json has no "posts" array');
+  }
+} catch (err) {
+  console.error(`POSTS.json failed validation: ${(err as Error).message}`);
   process.exit(1);
 }
