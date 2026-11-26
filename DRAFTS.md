@@ -1,6 +1,8 @@
 # Drafts — makefun-x-reposts-02
 
 Post these from **one public X account: @jehaoye**. Each draft is a QUOTE of
+
+UPDATE 26 Nov 05.27 WIB: @jehaoye ditangguhkan — posting dialihkan ke akun X ke-2 user, handle **@jehaoyee** (terkonfirmasi dari link post Draft 1). Tetap SATU akun untuk kelima draft.
 a different make.fun pool post (X: open the pool post, Repost button, then
 Quote, paste the draft text above it). One draft per pool post, never two
 drafts on the same pool post. Max 15 posts for the entry; these are the
